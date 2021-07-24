@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react'
 import Week from './Week'
 import Navigation from './Navigation'
 import Modal from './Modal'
+import CreateEvent from './CreateEvent'
 import Form from './Form'
 import firebaseDB from '../firebase'
+import dayjs from 'dayjs'
 
 export default function Calendar(props) {
     const [selectedWeek, changeWeek] = useState(0)
@@ -28,12 +30,17 @@ export default function Calendar(props) {
     const {isOpen, slot, ...modalFormProps} = modalPayload
 
     const closeModal = e => setModalState({ ...modalPayload, isOpen: !isOpen })
-    return <div className='calendar-container row'>
-        <Navigation onClick={e=> changeWeek(selectedWeek-1)} icon='left'/>
-        <Week selectedWeek={selectedWeek} addOrEditEvent={addOrEditEvent} allEvents={allEvents}/>
-        <Navigation onClick={e => changeWeek(selectedWeek+1)} icon='right'/>
-        <Modal modalIsOpen={isOpen} closeModal={closeModal} title='Enter event details'>
-            <Form slot={slot} {...modalFormProps} closeModal={closeModal}/>
-        </Modal>
-    </div> 
+
+    return <>
+        <h1>Calendar</h1>
+        <CreateEvent addOrEditEvent={addOrEditEvent}/>
+        <div className='calendar-container row'>
+            <Navigation onClick={e=> changeWeek(selectedWeek-1)} icon='left'/>
+            <Week selectedWeek={selectedWeek} addOrEditEvent={addOrEditEvent} allEvents={allEvents}/>
+            <Navigation onClick={e => changeWeek(selectedWeek+1)} icon='right'/>
+            <Modal modalIsOpen={isOpen} closeModal={closeModal} title='Enter event details'>
+                <Form slot={slot} {...modalFormProps} closeModal={closeModal}/>
+            </Modal>
+        </div>
+    </>
 }

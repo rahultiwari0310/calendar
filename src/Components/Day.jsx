@@ -33,7 +33,7 @@ export default function Day(props) {
                         >
                             <div className='event-title'>{it.title}</div>
                             <div className='event-time'>{dayjs(it.startDate).format('hh:mm')} - {dayjs(it.endDate).format('hh:mm A')}</div>
-                            <ReactTooltip id={it.key} effect='solid' clickable offset={{top: 0, left: 0}}>
+                            <ReactTooltip id={it.eventId} effect='solid' clickable offset={{top: 0, left: 0}}>
                                 <p>Title: {it.title}</p>
                                 <p>Owner: {it.owner}</p>
                                 <p>Time: {dayjs(it.startDate).format('DD MMM YYYY hh:mm A')} - {dayjs(it.endDate).format('DD MMM YYYY hh:mm A')}</p>

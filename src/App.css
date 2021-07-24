@@ -39,9 +39,14 @@
 
 .calendar-container {
   display: flex;
+  width: 100%;
+  padding: 12px;
+  margin: 0;
 }
 .calendar-nav-button {
-  height: 50px;
+    height: 50px;
+    margin: 0 12px;
+    width: 100px;
 }
 .day-heading {
   height: 36px;
