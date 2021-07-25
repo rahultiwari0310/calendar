@@ -18,9 +18,9 @@ const connection = firebaseDB.database().ref();
 
 //Create or update event in firebase
 export const createUpdateEvent = (event, eventId) => {
-  if(event.startDate >= event.endDate) {
-    window.alert('Event start date cannot be after or same as event end date.')
-    return
+  if (event.startDate >= event.endDate) {
+    window.alert("Event start date cannot be after or same as event end date.");
+    return;
   }
   if (eventId) {
     connection.child(`events/${eventId}`).set(event, logAndAlert);
@@ -48,7 +48,7 @@ export const subscribeToEvents = (callback) => {
 };
 
 export const logAndAlert = (err) => {
-  if(err) {
+  if (err) {
     console.log("Error:", err);
     window.alert(err.toString());
   }

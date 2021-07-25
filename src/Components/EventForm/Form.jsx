@@ -46,9 +46,11 @@ export default function Form({
   return (
     <div className="form-fields">
       <h3 className="event-form-heading">Event</h3>
-      <div className="event-actions">
-        <i onClick={handleDelete} className={`fas fa-trash delete-event`} />
-      </div>
+      {eventId ? (
+        <div className="event-actions">
+          <i onClick={handleDelete} className={`fas fa-trash delete-event`} />
+        </div>
+      ) : null}
 
       <form onSubmit={handleSubmit}>
         <EventDateTime
