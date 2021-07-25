@@ -44,6 +44,8 @@ export const subscribeToEvents = (callback) => {
 };
 
 export const logAndAlert = (err) => {
-  console.log("Error:", err);
-  window.alert(err.toString());
+  if(err) {
+    console.log("Error:", err);
+    window.alert(err.toString());
+  }
 };
