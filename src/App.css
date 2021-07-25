@@ -42,11 +42,13 @@
   width: 100%;
   padding: 12px;
   margin: 0;
+  justify-content: space-between;
 }
 .calendar-nav-button {
   height: 50px;
   margin: 0 12px;
-  width: 100px;
+  width: 6%;
+  font-size: 24px;
 }
 .day-heading {
   height: 36px;

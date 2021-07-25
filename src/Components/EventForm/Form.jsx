@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import EventDateTime from "./EventDateTime";
 import InputText from "./InputText";
-import firebaseDB from "../firebase";
+import { createUpdateEvent, removeEvent } from "../../firebase";
+import PropTypes from "prop-types";
 
 export default function Form({
   slot,
@@ -36,23 +37,12 @@ export default function Form({
       endDate: end.getTime(),
     };
     checkForExistingMeetings(updatedEvent, eventId);
-    if (eventId) {
-      firebaseDB
-        .child(`events/${eventId}`)
-        .set(updatedEvent, (err) => console.log(err));
-    } else {
-      firebaseDB.child("events").push(updatedEvent, (err) => console.log(err));
-    }
-
+    createUpdateEvent(updatedEvent, eventId);
     closeModal();
   };
 
-  const handleDelete = (e) => {
-    if (window.confirm("Are you sure you want to delete this event ?")) {
-      firebaseDB.child(`events/${eventId}`).remove((err) => console.log(err));
-      closeModal();
-    }
-  };
+  const handleDelete = () => removeEvent(eventId, closeModal);
+
   return (
     <div className="form-fields">
       <h3 className="event-form-heading">Event</h3>
@@ -91,10 +81,22 @@ export default function Form({
           label="Theme"
           name="theme"
         />
-        <button type="submit" class="btn btn-info">
+        <button type="submit" className="btn btn-info">
           Save
         </button>
       </form>
     </div>
   );
 }
+
+Form.propTypes = {
+  slot: PropTypes.object,
+  closeModal: PropTypes.func.isRequired,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object,
+  title: PropTypes.string,
+  owner: PropTypes.string,
+  theme: PropTypes.string,
+  eventId: PropTypes.string,
+  checkForExistingMeetings: PropTypes.func.isRequired,
+};

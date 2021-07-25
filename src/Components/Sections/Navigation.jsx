@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function NavOption({ onClick, icon }) {
   return (
@@ -11,3 +12,8 @@ export default function NavOption({ onClick, icon }) {
     </button>
   );
 }
+
+NavOption.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  icon: PropTypes.string.isRequired,
+};

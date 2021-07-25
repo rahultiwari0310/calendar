@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import DatetimeRangePicker from "react-datetime-range-picker";
 import Label from "./Label";
+import PropTypes from "prop-types";
+
 export default function EventDate(props) {
   const { startDate, endDate, onChange } = props;
 
@@ -17,3 +19,9 @@ export default function EventDate(props) {
     </div>
   );
 }
+
+EventDate.propTypes = {
+  startDate: PropTypes.object.isRequired,
+  endDate: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

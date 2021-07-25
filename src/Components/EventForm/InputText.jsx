@@ -1,5 +1,7 @@
 import React from "react";
 import Label from "./Label";
+import PropTypes from "prop-types";
+
 export default function InputText({
   placeholder,
   value,
@@ -25,3 +27,12 @@ export default function InputText({
     </div>
   );
 }
+
+InputText.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+};

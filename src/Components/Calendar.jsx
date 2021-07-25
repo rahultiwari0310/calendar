@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Week from "./Week";
-import Navigation from "./Navigation";
-import Modal from "./Modal";
-import CreateEvent from "./CreateEvent";
-import Form from "./Form";
-import firebaseDB from "../firebase";
-import dayjs from "dayjs";
+import WeeksAndNav from "./Sections/WeeksAndNav";
+import AppHead from "./Sections/AppHead";
+import ModalWithForm from "./EventForm/ModalWithForm";
+import { subscribeToEvents } from "../firebase";
 import { checkConflicts } from "../helpers";
 
-export default function Calendar(props) {
+export default function Calendar() {
   const [selectedWeek, changeWeek] = useState(0);
   const [modalPayload, setModalState] = useState({});
   const [allEvents, setEvents] = useState({});
+
+  //Open modal with initial values
   const addOrEditEvent = (payload) => {
     setModalState({
       isOpen: true,
@@ -19,54 +18,32 @@ export default function Calendar(props) {
     });
   };
 
-  useEffect(() => {
-    firebaseDB.child("events").on("value", (snapshot) => {
-      const value = snapshot.val();
-      if (value) {
-        setEvents({ ...value });
-      }
-    });
-  }, []);
+  //subscribe to events firebase data
+  useEffect(() => subscribeToEvents(setEvents), []);
 
   const checkForExistingMeetings = (event, eventId, hideAlert) =>
     checkConflicts(event, allEvents, eventId, hideAlert);
-  const { isOpen, slot, ...modalFormProps } = modalPayload;
 
-  const closeModal = (e) => setModalState({ ...modalPayload, isOpen: !isOpen });
+  const closeModal = (e) =>
+    setModalState({ ...modalPayload, isOpen: !modalPayload.isOpen });
 
   return (
     <>
-      <div className="app-head">
-        <h1>
-          <i class="fas fa-calendar-alt"></i> Weekly Calendar
-        </h1>
-        <CreateEvent addOrEditEvent={addOrEditEvent} />
-      </div>
+      <AppHead addOrEditEvent={addOrEditEvent} />
 
       <div className="calendar-container row">
-        <Navigation onClick={(e) => changeWeek(selectedWeek - 1)} icon="left" />
-        <Week
-          selectedWeek={selectedWeek}
+        <WeeksAndNav
+          changeWeek={changeWeek}
           addOrEditEvent={addOrEditEvent}
           allEvents={allEvents}
           checkForExistingMeetings={checkForExistingMeetings}
+          selectedWeek={selectedWeek}
         />
-        <Navigation
-          onClick={(e) => changeWeek(selectedWeek + 1)}
-          icon="right"
-        />
-        <Modal
-          modalIsOpen={isOpen}
+        <ModalWithForm
           closeModal={closeModal}
-          title="Enter event details"
-        >
-          <Form
-            checkForExistingMeetings={checkForExistingMeetings}
-            slot={slot}
-            {...modalFormProps}
-            closeModal={closeModal}
-          />
-        </Modal>
+          checkForExistingMeetings={checkForExistingMeetings}
+          modalPayload={modalPayload}
+        />
       </div>
     </>
   );

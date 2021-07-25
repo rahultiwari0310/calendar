@@ -12,4 +12,38 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 const firebaseDB = firebase.initializeApp(firebaseConfig);
-export default firebaseDB.database().ref();
+const connection = firebaseDB.database().ref();
+
+//Firebase helpers
+
+//Create or update event in firebase
+export const createUpdateEvent = (event, eventId) => {
+  if (eventId) {
+    connection.child(`events/${eventId}`).set(event, logAndAlert);
+  } else {
+    connection.child("events").push(event, logAndAlert);
+  }
+};
+
+//Delete event from DB
+export const removeEvent = (eventId, close) => {
+  if (window.confirm("Are you sure you want to delete this event ?")) {
+    connection.child(`events/${eventId}`).remove(logAndAlert);
+    close && close();
+  }
+};
+
+//Subscribe to events data
+export const subscribeToEvents = (callback) => {
+  connection.child("events").on("value", (snapshot) => {
+    const value = snapshot.val();
+    if (value) {
+      callback({ ...value });
+    }
+  });
+};
+
+export const logAndAlert = (err) => {
+  console.log("Error:", err);
+  window.alert(err.toString());
+};
