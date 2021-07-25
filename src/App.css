@@ -44,9 +44,9 @@
   margin: 0;
 }
 .calendar-nav-button {
-    height: 50px;
-    margin: 0 12px;
-    width: 100px;
+  height: 50px;
+  margin: 0 12px;
+  width: 100px;
 }
 .day-heading {
   height: 36px;
@@ -60,11 +60,11 @@
   border-right: 0;
   cursor: pointer;
 }
-.row .half-hour:nth-child(even) {
+.row .half-hour-1 {
   border-top: 0;
 }
-.row .half-hour:nth-child(odd) {
-  border-bottom: 0;
+.row .half-hour-0 {
+  border-bottom-style: dashed;
 }
 .half-hour-time {
   position: absolute;
@@ -94,7 +94,7 @@
   padding: 2px;
 }
 .event-title {
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   text-align: left;
