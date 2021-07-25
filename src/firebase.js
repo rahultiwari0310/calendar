@@ -18,8 +18,8 @@ const connection = firebaseDB.database().ref();
 
 //Create or update event in firebase
 export const createUpdateEvent = (event, eventId) => {
-  if(event.startDate < event.endDate) {
-    window.alert('Event start date cannot be after event end date.')
+  if(event.startDate >= event.endDate) {
+    window.alert('Event start date cannot be after or same as event end date.')
     return
   }
   if (eventId) {

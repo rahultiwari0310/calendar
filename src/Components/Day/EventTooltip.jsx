@@ -32,7 +32,6 @@ export default function EventTooltip({
 }
 
 EventTooltip.propTypes = {
-  event: PropTypes.object.isRequired,
   eventId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
