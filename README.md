@@ -4,6 +4,7 @@
 #### To access locally, clone the repo using `git clone https://github.com/rahultiwari0310/calendar.git`
 #### After cloning, run `npm install` and after all modules are installed run `npm start`
 #### Then visit `http://localhost:3000` to access the calendar app on localhost
+#### Review the source code at https://github.com/rahultiwari0310/calendar/tree/main/src
 
 ## About the app
 #### This app uses firebase as storage of events scheduled. https://www.npmjs.com/package/firebase
