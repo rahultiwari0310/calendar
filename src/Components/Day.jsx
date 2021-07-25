@@ -4,7 +4,14 @@ import ReactTooltip from "react-tooltip";
 import { Draggable, Droppable } from "react-drag-and-drop";
 
 export default function Day(props) {
-  const { date, isFirstDay, addOrEditEvent, eventsInDay, handleDrop } = props;
+  const {
+    date,
+    isFirstDay,
+    addOrEditEvent,
+    eventsInDay,
+    handleDrop,
+    checkForExistingMeetings,
+  } = props;
 
   return (
     <div className="col border">
@@ -36,6 +43,11 @@ export default function Day(props) {
           );
         })}
         {eventsInDay.map((it) => {
+          const conflicts = checkForExistingMeetings(it, it.eventId, true);
+          const sortedEventKeys = [...conflicts, it.eventId].sort((a, b) =>
+            a.localeCompare(b)
+          );
+          const positionForCurrentEvent = sortedEventKeys.indexOf(it.eventId);
           return (
             <div
               key={it.eventId}
@@ -48,6 +60,10 @@ export default function Day(props) {
                     (1000 * 60 * 30)) *
                     20 +
                   "px",
+                left:
+                  (100 / (conflicts.length + 1)) * positionForCurrentEvent +
+                  "%",
+                width: 100 / (conflicts.length + 1) + "%",
               }}
               data-for={it.eventId}
               data-tip

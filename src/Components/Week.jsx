@@ -46,6 +46,7 @@ export default function Week(props) {
               isFirstDay={!idx}
               eventsInDay={getEventsInDay(it, allEvents) || []}
               handleDrop={handleDrop}
+              checkForExistingMeetings={checkForExistingMeetings}
             />
           );
         })}

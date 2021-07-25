@@ -28,8 +28,8 @@ export default function Calendar(props) {
     });
   }, []);
 
-  const checkForExistingMeetings = (event, eventId) =>
-    checkConflicts(event, allEvents, eventId);
+  const checkForExistingMeetings = (event, eventId, hideAlert) =>
+    checkConflicts(event, allEvents, eventId, hideAlert);
   const { isOpen, slot, ...modalFormProps } = modalPayload;
 
   const closeModal = (e) => setModalState({ ...modalPayload, isOpen: !isOpen });
