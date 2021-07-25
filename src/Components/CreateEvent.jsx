@@ -5,7 +5,7 @@ export default function CreateEvent({ addOrEditEvent }) {
   const now = dayjs();
 
   return (
-    <div className="col-md-12">
+    <div className="create-event">
       <button
         type="button"
         className="btn btn-success"

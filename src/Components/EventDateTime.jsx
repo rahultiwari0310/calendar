@@ -5,7 +5,7 @@ export default function EventDate(props) {
   const { startDate, endDate, onChange } = props;
 
   return (
-    <div className="field">
+    <div className="field mb-3">
       <Label label="Select date and time" />
       <DatetimeRangePicker
         onChange={onChange}

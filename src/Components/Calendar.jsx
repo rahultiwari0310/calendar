@@ -36,8 +36,13 @@ export default function Calendar(props) {
 
   return (
     <>
-      <h1>Calendar</h1>
-      <CreateEvent addOrEditEvent={addOrEditEvent} />
+      <div className="app-head">
+        <h1>
+          <i class="fas fa-calendar-alt"></i> Weekly Calendar
+        </h1>
+        <CreateEvent addOrEditEvent={addOrEditEvent} />
+      </div>
+
       <div className="calendar-container row">
         <Navigation onClick={(e) => changeWeek(selectedWeek - 1)} icon="left" />
         <Week

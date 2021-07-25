@@ -52,19 +52,7 @@ export default function Day(props) {
             <div
               key={it.eventId}
               className="event-in-day"
-              style={{
-                height:
-                  ((it.endDate - it.startDate) / (1000 * 60 * 30)) * 20 + "px",
-                top:
-                  ((it.startDate - date.startOf("day").$d.getTime()) /
-                    (1000 * 60 * 30)) *
-                    20 +
-                  "px",
-                left:
-                  (100 / (conflicts.length + 1)) * positionForCurrentEvent +
-                  "%",
-                width: 100 / (conflicts.length + 1) + "%",
-              }}
+              style={getStyles(it, conflicts, positionForCurrentEvent, date)}
               data-for={it.eventId}
               data-tip
               onClick={(e) => addOrEditEvent({ ...it })}
@@ -100,3 +88,28 @@ export default function Day(props) {
     </div>
   );
 }
+
+export const getStyles = (event, conflicts, postion, date) => {
+  const startOfDay = date.startOf("day").$d.getTime();
+  const endOfDay = date.endOf("day").$d.getTime();
+  const eventStartDate = Math.max(event.startDate, startOfDay);
+  const eventEndDate = Math.min(event.endDate, endOfDay);
+  const height =
+    ((eventEndDate - eventStartDate) / (1000 * 60 * 30)) * 20 + "px";
+
+  const top =
+    ((eventStartDate - date.startOf("day").$d.getTime()) / (1000 * 60 * 30)) *
+      20 +
+    "px";
+
+  const left = (100 / (conflicts.length + 1)) * postion + "%";
+
+  const width = 100 / (conflicts.length + 1) + "%";
+
+  return {
+    width,
+    top,
+    height,
+    left,
+  };
+};

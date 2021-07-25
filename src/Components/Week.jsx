@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 import Day from "./Day";
 import firebaseDB from "../firebase";
+import { dateRangeOverlaps } from "../helpers";
 
 export default function Week(props) {
   const { selectedWeek, addOrEditEvent, allEvents, checkForExistingMeetings } =
@@ -24,12 +25,12 @@ export default function Week(props) {
 
   const getEventsInDay = (day, events) => {
     return Object.keys(events)
-      .filter((key) => {
-        return (
-          events[key].startDate >= day.$d.getTime() &&
-          events[key].endDate <= day.endOf("day").$d.getTime()
-        );
-      })
+      .filter((key) =>
+        dateRangeOverlaps(events[key], {
+          startDate: day.$d.getTime(),
+          endDate: day.endOf("day").$d.getTime(),
+        })
+      )
       .map((key) => {
         return { ...events[key], eventId: key };
       });

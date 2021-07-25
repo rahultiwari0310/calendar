@@ -103,6 +103,8 @@
 .event-time {
   font-size: 12px;
   text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .delete-event {
   color: rgb(201, 77, 77);
@@ -111,4 +113,14 @@
 }
 .event-actions {
   text-align: right;
+}
+.event-form-heading {
+  text-align: center;
+}
+.app-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  align-items: center;
+  background-color: beige;
 }
